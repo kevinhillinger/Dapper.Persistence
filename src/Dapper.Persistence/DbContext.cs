@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace Dapper.Persistence
+namespace Dapper.Mousse
 {
     /// <summary>
     /// Default db context as a unit of work

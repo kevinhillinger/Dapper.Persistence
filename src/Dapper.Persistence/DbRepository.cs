@@ -1,4 +1,4 @@
-﻿namespace Dapper.Persistence
+﻿namespace Dapper.Mousse
 {
     /// <summary>
     /// Base repository implementation that depends on an <see cref="IDbContext"/>

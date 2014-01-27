@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
 
-namespace Dapper.Persistence
+namespace Dapper.Mousse
 {
     /// <summary>
-    /// Unit of work / data session
+    /// Unit of work
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {

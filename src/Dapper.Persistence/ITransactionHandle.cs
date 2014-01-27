@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 
-namespace Dapper.Persistence
+namespace Dapper.Mousse
 {
     /// <summary>
     /// Provides a handle to a transaction

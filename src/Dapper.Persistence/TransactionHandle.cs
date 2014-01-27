@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Dapper.Persistence
+namespace Dapper.Mousse
 {
     /// <summary>
     /// default implementation of transaction handle
