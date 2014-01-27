@@ -14,14 +14,8 @@ namespace Dapper.Data
         private bool _disposed;
         private IDbTransaction _transaction;
 
-        /// <summary>
-        /// Gets the instance id of the unit of work
-        /// </summary>
-        public Guid InstanceId { get; private set; }
-
         public DbContext(IDbConnection connection)
         {
-            InstanceId = Guid.NewGuid();
             EnsureAnOpenConnection(connection);
         }
 

@@ -9,11 +9,6 @@ namespace Dapper.Data
     public interface IUnitOfWork : IDisposable
     {
         /// <summary>
-        /// Gets the instance id
-        /// </summary>
-        Guid InstanceId { get; }
-
-        /// <summary>
         /// Begins a transaction for work. The default isolation level is Read Committed. <see cref="IsolationLevel"/>
         /// </summary>
         ITransactionHandle Begin(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
