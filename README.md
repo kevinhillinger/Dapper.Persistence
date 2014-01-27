@@ -1,4 +1,4 @@
-Dapper.Persistence
+Dapper.Mousse
 ================
 
 dapper-dot-net mousse library. Simple. light. data context + unit of work. that simple.
