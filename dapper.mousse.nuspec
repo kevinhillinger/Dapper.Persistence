@@ -1,6 +1,6 @@
-?<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata schemaVersion="2">
+  <metadata>
     <id>Dapper.Mousse</id>
     <version>0.1</version>
     <title>Dapper dot net Mousse</title>
@@ -11,7 +11,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A lightweight library that extends Dapper.NET Micro-ORM</description>
     <summary>A lightweight data context + repository + unit of work on top of Dapper.NET</summary>
-    <tags></tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Core"/>
       <frameworkAssembly assemblyName="System"/>
@@ -20,6 +19,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="Dapper.Mousse\bin\Release\Dapper.Mousse.dll" target="lib\net45" />
+    <file src="src\Dapper.Mousse\bin\Release\Dapper.Mousse.dll" target="lib\net45" />
   </files>
 </package>
