@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Dapper.Data
+namespace Dapper.Persistence
 {
     /// <summary>
     /// Unit of work / data session

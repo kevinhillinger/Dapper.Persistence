@@ -7,8 +7,8 @@
     <ProjectGuid>{80225503-1341-490D-A7E7-FE697F159C71}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dapper.Data</RootNamespace>
-    <AssemblyName>Dapper.Data</AssemblyName>
+    <RootNamespace>Dapper.Persistence</RootNamespace>
+    <AssemblyName>Dapper.Persistence</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
