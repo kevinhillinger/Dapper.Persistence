@@ -1,7 +1,7 @@
 Dapper.Mousse
 ================
 
-dapper-dot-net mousse library. Simple. light. 
+dapper-dot-net persistence library. Simple. light. 
 
 data context + repository + unit of work. that simple.
 
