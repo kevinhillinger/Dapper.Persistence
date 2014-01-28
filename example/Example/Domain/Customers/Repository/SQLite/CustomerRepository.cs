@@ -1,6 +1,6 @@
 ﻿using Dapper.Persistence;
 
-namespace Example.Domain.Barbering.Repository.SQLite
+namespace Example.Domain.Customers.Repository.SQLite
 {
     internal class SqliteCustomerRepository : DbRepository, ICustomerRepository
     {

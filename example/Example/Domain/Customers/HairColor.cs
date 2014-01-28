@@ -1,4 +1,4 @@
-﻿namespace Example.Domain.Barbering
+﻿namespace Example.Domain.Customers
 {
     public enum HairColor
     {

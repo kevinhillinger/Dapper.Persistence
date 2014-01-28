@@ -56,18 +56,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Customers\HairStyle.cs" />
     <Compile Include="Domain\Barbering\Shop.cs" />
-    <Compile Include="Domain\Barbering\Customer.cs" />
-    <Compile Include="Domain\Barbering\Repository\SQLite\CustomerRepository.cs" />
-    <Compile Include="Domain\Barbering\Hair.cs" />
-    <Compile Include="Domain\Barbering\HairColor.cs" />
-    <Compile Include="Domain\Barbering\Repository\ICustomerRepository.cs" />
+    <Compile Include="Domain\Customers\Customer.cs" />
+    <Compile Include="Domain\Customers\Repository\SQLite\CustomerRepository.cs" />
+    <Compile Include="Domain\Customers\Hair.cs" />
+    <Compile Include="Domain\Customers\HairColor.cs" />
+    <Compile Include="Domain\Customers\Repository\ICustomerRepository.cs" />
     <Compile Include="Domain\Barbering\Barber.cs" />
     <Compile Include="Infrastructure\ProgramRegistry.cs" />
     <Compile Include="Infrastructure\SqliteConnectionFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Domain\Products\Repository\SQLite\HairRepository.cs" />
     <Compile Include="Domain\Products\Pomade.cs" />
     <Compile Include="Domain\Products\Repository\SQLite\PomadeRepository.cs" />
   </ItemGroup>

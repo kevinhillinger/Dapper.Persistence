@@ -1,4 +1,4 @@
-﻿namespace Example.Domain.Barbering.Repository
+﻿namespace Example.Domain.Customers.Repository
 {
     public interface ICustomerRepository
     {
