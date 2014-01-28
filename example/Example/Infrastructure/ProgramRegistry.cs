@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Dapper.Persistence;
+using Example.Domain.Barbering;
 using StructureMap.Configuration.DSL;
 
 namespace Example.Infrastructure
@@ -8,6 +9,8 @@ namespace Example.Infrastructure
     {
          public ProgramRegistry()
          {
+             For<Locations>().Use<Locations>();
+
              ForSingletonOf<SqliteConnectionFactory>().Use<SqliteConnectionFactory>();
 
              //wireup dapper persistence. that's it!

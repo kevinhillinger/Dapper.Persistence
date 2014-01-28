@@ -56,6 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Barbering\Repository\IShopRepository.cs" />
+    <Compile Include="Domain\Barbering\Locations.cs" />
     <Compile Include="Domain\Customers\HairStyle.cs" />
     <Compile Include="Domain\Barbering\Shop.cs" />
     <Compile Include="Domain\Customers\Customer.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Domain\Customers\HairColor.cs" />
     <Compile Include="Domain\Customers\Repository\ICustomerRepository.cs" />
     <Compile Include="Domain\Barbering\Barber.cs" />
+    <Compile Include="Infrastructure\ContainerConfig.cs" />
     <Compile Include="Infrastructure\ProgramRegistry.cs" />
     <Compile Include="Infrastructure\SqliteConnectionFactory.cs" />
     <Compile Include="Program.cs" />
