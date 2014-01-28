@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>Dapper.Mousse</id>
+    <id>Dapper.Persistence</id>
     <version>0.1</version>
-    <title>Dapper dot net Mousse</title>
+    <title>Dapper dot net Persistence</title>
     <authors>Kevin Hillinger</authors>
     <owners>Kevin Hillinger</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
-    <projectUrl>https://github.com/kevinhillinger/Dapper.Mousse</projectUrl>
+    <projectUrl>https://github.com/kevinhillinger/Dapper.Persistence</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A lightweight library that extends Dapper.NET Micro-ORM</description>
     <summary>A lightweight data context + repository + unit of work on top of Dapper.NET</summary>
@@ -19,6 +19,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="src\Dapper.Mousse\bin\Release\Dapper.Mousse.dll" target="lib\net45" />
+    <file src="src\Dapper.Persistence\bin\Release\Dapper.Persistence.dll" target="lib\net45" />
   </files>
 </package>
