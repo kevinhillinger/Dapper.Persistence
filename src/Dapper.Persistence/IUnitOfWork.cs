@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Dapper.Mousse
+namespace Dapper.Persistence
 {
     /// <summary>
     /// Unit of work
