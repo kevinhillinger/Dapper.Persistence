@@ -1,4 +1,4 @@
-Dapper.Mousse
+Dapper.Persistence
 ================
 
 dapper-dot-net persistence library. Simple. light. 
