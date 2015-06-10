@@ -11,7 +11,9 @@ This isn't meant to be a replacement for an ORM.  This isn't about a large frame
 
 ## Why did you wrap dapper?
 
-First off, if Dapper gets an update, you get the update. I'm not rewriting dapper. Second, it comes down to belief thing for me: I don't believe
+First off, if Dapper gets an update, you get the update. I'm not rewriting dapper. 
+
+Second, it comes down to belief thing for me: I don't believe
 that IDbConnection should be a direct dependency because too much can go wrong, particularly when sharing that connection.
 
 
