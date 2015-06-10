@@ -13,7 +13,8 @@ This isn't meant to be a replacement for an ORM.  This isn't about a large frame
 
 First off, if Dapper gets an update, you get the update. I'm not rewriting dapper. 
 
-Second, it comes down to belief thing for me: I don't believe
-that IDbConnection should be a direct dependency because too much can go wrong, particularly when sharing that connection.
+Second, it comes down to a belief thing for me: I don't believe
+that IDbConnection should be a direct dependency because too much can go wrong, particularly when sharing that connection. If that
+that on a project where Dapper was being used, IDbConnection was being abused.
 
 
