@@ -17,4 +17,7 @@ Second, it comes down to a belief thing for me: I don't believe
 that IDbConnection should be a direct dependency because too much can go wrong, particularly when sharing that connection. If that
 that on a project where Dapper was being used, IDbConnection was being abused.
 
+## License
+
+The license is Apache2.
 
