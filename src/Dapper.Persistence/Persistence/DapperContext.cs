@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 namespace Dapper.Persistence
 {
     /// <summary>
-    /// Default db context as a unit of work
+    /// Default dapper context as a unit of work
     /// </summary>
-    public class DbContext : IDbContext, IUnitOfWork
+    public class DapperContext : IDapperContext, IDapperUnitOfWork
     {
-        private IDbConnection _connection;
-        private bool _disposed;
-        private IDbTransaction _transaction;
+        private IDbConnection connection;
+        private bool disposed;
+        private IDbTransaction transaction;
 
-        public DbContext(IDbConnection connection)
+        public DapperContext(IDbConnection connection)
         {
             EnsureAnOpenConnection(connection);
         }
 
-        public ITransactionHandle Begin(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        public IDapperDbTransactionHandle Begin(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
-            if (_disposed)
+            if (disposed)
             {
-                throw new ObjectDisposedException(typeof(IUnitOfWork).Name, "The unit of work is disposed. You cannot begin work with it.");
+                throw new ObjectDisposedException(typeof(IDapperUnitOfWork).Name, "The unit of work is disposed. You cannot begin work with it.");
             }
 
             return EnsureTransaction(isolationLevel);
@@ -31,70 +31,70 @@ namespace Dapper.Persistence
 
         public void Commit()
         {
-            if (_transaction != null)
+            if (transaction != null)
             {
-                _transaction.Commit();
-                _transaction = null;
+                transaction.Commit();
+                transaction = null;
             }
 
-            _connection.Close();
+            connection.Close();
         }
 
         public void Rollback()
         {
-            if (_transaction != null)
+            if (transaction != null)
             {
-                _transaction.Rollback();
-                _transaction.Dispose();
-                _transaction = null;
+                transaction.Rollback();
+                transaction.Dispose();
+                transaction = null;
             }
         }
 
         public void Dispose()
         {
-            if (_disposed)
+            if (disposed)
             {
                 return;
             }
 
-            if (_connection != null)
+            if (connection != null)
             {
-                if (_transaction != null)
+                if (transaction != null)
                 {
-                    _transaction.Commit();
-                    _transaction = null;
+                    transaction.Commit();
+                    transaction = null;
                 }
 
-                _connection.Dispose(); //should close the connection
-                _connection = null;
+                connection.Dispose(); //should close the connection
+                connection = null;
             }
 
-            _disposed = true;
+            disposed = true;
         }
 
         private void EnsureAnOpenConnection(IDbConnection connection = null)
         {
             if (connection != null)
             {
-                _connection = connection;
+                this.connection = connection;
             }
 
-            if (_connection.State != ConnectionState.Open)
+            if (this.connection.State != ConnectionState.Open)
             {
-                _connection.Open();
+                this.connection.Open();
             }
         }
 
-        protected virtual ITransactionHandle EnsureTransaction(IsolationLevel isolationLevel)
+        protected virtual IDapperDbTransactionHandle EnsureTransaction(IsolationLevel isolationLevel)
         {
             EnsureAnOpenConnection();
 
-            if (_transaction == null)
+            if (transaction == null)
             {
-                _transaction = _connection.BeginTransaction(isolationLevel); //underlying transaction
+                transaction = connection.BeginTransaction(isolationLevel); //underlying transaction
             }
 
-            var handle = new TransactionHandle(_transaction);
+            var handle = new TransactionHandle(transaction);
             handle.Disposed += (o, e) => Commit();
 
             return handle;
@@ -104,89 +104,88 @@ namespace Dapper.Persistence
 
         public Task<IEnumerable<T>> QueryAsync<T>(string sql, dynamic param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.QueryAsync<T>(_connection, sql, param, _transaction, commandTimeout, commandType);
+            return SqlMapper.QueryAsync<T>(connection, sql, param, transaction, commandTimeout, commandType);
         }
 
         public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.QueryAsync<TFirst, TSecond, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.QueryAsync<TFirst, TSecond, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public int Execute(string sql, dynamic param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.Execute(_connection, sql, param, _transaction, commandTimeout, commandType);
+            return SqlMapper.Execute(connection, sql, param, transaction, commandTimeout, commandType);
         }
 
         public IEnumerable<dynamic> Query(string sql, dynamic param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.Query(_connection, sql, param, _transaction, buffered, commandTimeout, commandType);
+            return SqlMapper.Query(connection, sql, param, transaction, buffered, commandTimeout, commandType);
         }
 
         public IEnumerable<T> Query<T>(string sql, dynamic param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.Query<T>(_connection, sql, param, _transaction, buffered, commandTimeout, commandType);
+            return SqlMapper.Query<T>(connection, sql, param, transaction, buffered, commandTimeout, commandType);
         }
 
         public SqlMapper.GridReader QueryMultiple(string sql, dynamic param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.QueryMultiple(_connection, sql, param, _transaction, commandTimeout, commandType);
+            return SqlMapper.QueryMultiple(connection, sql, param, transaction, commandTimeout, commandType);
         }
 
         public IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.Query<TFirst, TSecond, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.Query<TFirst, TSecond, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.Query<TFirst, TSecond, TThird, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.Query<TFirst, TSecond, TThird, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.Query<TFirst, TSecond, TThird, TFourth, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.Query<TFirst, TSecond, TThird, TFourth, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, dynamic param = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return SqlMapper.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(_connection, sql, map, param, _transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(connection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
-
 
         #endregion
     }

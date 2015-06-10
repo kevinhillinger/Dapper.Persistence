@@ -19,7 +19,7 @@ namespace Dapper.Persistence
     /// a handle, supporting the using() {} statement. Yes, this is fencing in what you can do with the db transaction
     /// and avoids direct access to the underlying transaction object
     /// </remarks>
-    public interface ITransactionHandle : IDisposable
+    public interface IDapperDbTransactionHandle : IDisposable
     {
         /// <summary>
         /// Triggered after Dispose is called

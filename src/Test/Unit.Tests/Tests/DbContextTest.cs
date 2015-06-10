@@ -1,10 +1,11 @@
-﻿using System;
-using System.Data;
-using NSubstitute;
-using Xunit;
-
-namespace Dapper.Persistence.Tests
+﻿namespace Unit.Tests.Tests
 {
+    using System;
+    using System.Data;
+    using Dapper.Persistence;
+    using NSubstitute;
+    using Xunit;
+
     public class DbContextTest
     {
         [Fact]
@@ -104,7 +105,7 @@ namespace Dapper.Persistence.Tests
 
             public DapperContextSpy(IDbConnection connection, IDapperDbTransactionHandle dapperDbTransactionHandleMock) : base(connection)
             {
-                dapperDbTransactionHandleMock = dapperDbTransactionHandleMock;
+                this.dapperDbTransactionHandleMock = dapperDbTransactionHandleMock;
             }
 
             protected override IDapperDbTransactionHandle EnsureTransaction(IsolationLevel isolationLevel)

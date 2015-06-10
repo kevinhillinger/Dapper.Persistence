@@ -8,7 +8,7 @@ namespace Dapper.Persistence
     /// <summary>
     /// The db context for dapper
     /// </summary>
-    public interface IDbContext
+    public interface IDapperContext
     {
         #region Dapper mapping
 

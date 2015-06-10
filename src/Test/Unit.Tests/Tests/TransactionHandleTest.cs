@@ -1,9 +1,10 @@
-﻿using System.Data;
-using NSubstitute;
-using Xunit;
-
-namespace Dapper.Persistence.Tests
+﻿namespace Unit.Tests.Tests
 {
+    using System.Data;
+    using Dapper.Persistence;
+    using NSubstitute;
+    using Xunit;
+
     public class TransactionHandleTest
     {
         [Fact(DisplayName = "TransactionHandle: should be IDapperDbTransactionHandle")]

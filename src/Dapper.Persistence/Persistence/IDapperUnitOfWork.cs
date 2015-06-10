@@ -4,14 +4,14 @@ using System.Data;
 namespace Dapper.Persistence
 {
     /// <summary>
-    /// Unit of work
+    /// Unit of work that can be extended.
     /// </summary>
-    public interface IUnitOfWork : IDisposable
+    public interface IDapperUnitOfWork : IDisposable
     {
         /// <summary>
         /// Begins a transaction for work. The default isolation level is Read Committed. <see cref="IsolationLevel"/>
         /// </summary>
-        ITransactionHandle Begin(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
+        IDapperDbTransactionHandle Begin(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
 
         /// <summary>
         /// Commits the changes

@@ -6,9 +6,9 @@ namespace Dapper.Persistence
     /// <summary>
     /// default implementation of transaction handle
     /// </summary>
-    internal class TransactionHandle : ITransactionHandle
+    class TransactionHandle : IDapperDbTransactionHandle
     {
-        private IDbTransaction _transaction;
+        private IDbTransaction transaction;
 
         /// <summary>
         /// Triggered after Dispose is called
@@ -22,20 +22,20 @@ namespace Dapper.Persistence
 
         public TransactionHandle(IDbTransaction transaction)
         {
-            _transaction = transaction;
+            this.transaction = transaction;
             IsolationLevel = transaction.IsolationLevel;
         }
 
         public void Dispose()
         {
-            if (_transaction != null)
+            if (transaction != null)
             {
-                _transaction.Commit();
-                _transaction.Dispose();
+                transaction.Commit();
+                transaction.Dispose();
 
                 OnDisposed();
 
-                _transaction = null;
+                transaction = null;
             }
         }
 
